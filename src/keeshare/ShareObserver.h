@@ -92,7 +92,7 @@ private:
 
     void deinitialize();
     void reinitialize();
-    void notifyAbout(const QStringList& success, const QStringList& warning, const QStringList& error);
+    void notifyAbout(QStringList& success, const QStringList& warning, const QStringList& error);
 
 private:
     QSharedPointer<Database> m_db;

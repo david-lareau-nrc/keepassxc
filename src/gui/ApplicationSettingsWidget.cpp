@@ -267,6 +267,8 @@ void ApplicationSettingsWidget::saveSettings()
     config()->set("GUI/DarkTrayIcon", m_generalUi->systrayDarkIconCheckBox->isChecked());
     config()->set("GUI/MinimizeToTray", m_generalUi->systrayMinimizeToTrayCheckBox->isChecked());
     config()->set("GUI/MinimizeOnClose", m_generalUi->minimizeOnCloseCheckBox->isChecked());
+    // lareaud: option to shush positive notice.
+    config()->set("GUI/quietPositiveNotice", m_generalUi->quietPositiveNotice->isChecked());
     config()->set("GUI/MinimizeOnStartup", m_generalUi->systrayMinimizeOnStartup->isChecked());
     config()->set("GUI/CheckForUpdates", m_generalUi->checkForUpdatesOnStartupCheckBox->isChecked());
     config()->set("GUI/CheckForUpdatesIncludeBetas", m_generalUi->checkForUpdatesIncludeBetasCheckBox->isChecked());

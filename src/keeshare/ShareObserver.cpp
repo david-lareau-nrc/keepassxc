@@ -259,8 +259,13 @@ void ShareObserver::reinitialize()
     notifyAbout(success, warning, error);
 }
 
-void ShareObserver::notifyAbout(const QStringList& success, const QStringList& warning, const QStringList& error)
+void ShareObserver::notifyAbout(QStringList& success, const QStringList& warning, const QStringList& error)
 {
+    // lareaud: don't show positive notice.
+    if(config()->get("GUI/quietPositiveNotice").toBool()) {
+      success.clear();
+    }
+
     if (error.isEmpty() && warning.isEmpty() && success.isEmpty()) {
         return;
     }
@@ -272,6 +277,7 @@ void ShareObserver::notifyAbout(const QStringList& success, const QStringList& w
     if (!error.isEmpty()) {
         type = MessageWidget::Error;
     }
+
     emit sharingMessage((success + warning + error).join("\n"), type);
 }
 
