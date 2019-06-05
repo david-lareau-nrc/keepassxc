@@ -260,14 +260,7 @@ void EditGroupWidgetKeeShare::launchPathSelectionDialog()
     auto supportedExtensions = QStringList();
     auto unsupportedExtensions = QStringList();
     auto knownFilters = QStringList() << QString("%1 (*)").arg("All files");
-#if defined(WITH_XC_KEESHARE_INSECURE)
-    defaultFiletype = KeeShare::unsignedContainerFileType();
-    supportedExtensions << KeeShare::unsignedContainerFileType();
-    knownFilters.prepend(
-        QString("%1 (*.%2)").arg(tr("KeeShare unsigned container"), KeeShare::unsignedContainerFileType()));
-#else
-    unsupportedExtensions << KeeShare::unsignedContainerFileType();
-#endif
+// lareaud: move insecure below, so that it is the default when both types are enabled.
 #if defined(WITH_XC_KEESHARE_SECURE)
     defaultFiletype = KeeShare::signedContainerFileType();
     supportedExtensions << KeeShare::signedContainerFileType();
@@ -275,6 +268,14 @@ void EditGroupWidgetKeeShare::launchPathSelectionDialog()
         QString("%1 (*.%2)").arg(tr("KeeShare signed container"), KeeShare::signedContainerFileType()));
 #else
     unsupportedExtensions << KeeShare::signedContainerFileType();
+#endif
+#if defined(WITH_XC_KEESHARE_INSECURE)
+    defaultFiletype = KeeShare::unsignedContainerFileType();
+    supportedExtensions << KeeShare::unsignedContainerFileType();
+    knownFilters.prepend(
+        QString("%1 (*.%2)").arg(tr("KeeShare unsigned container"), KeeShare::unsignedContainerFileType()));
+#else
+    unsupportedExtensions << KeeShare::unsignedContainerFileType();
 #endif
 
     const auto filters = knownFilters.join(";;");
